@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <h1 class="mb-3" >Post by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    {% for post in posts %}
+        <article class="media content-section">
+            <img class="img-responsive rounded-circle article-img" src=" {{post.author.profile.image.url}} ">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'userhomepage' post.author.username %}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href=" {% url 'detailpage' post.id %} "> {{ post.movie_name }} </a></h2>
+            <p class="article-content"> {{ post.review }} </p>
+            </div>
+        </article>
+    {% endfor %}
+<!-- paginator -->
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4 btn-sm " href="?page=1">&laquo; First</a>
+            <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                 <span  class="active btn btn-info mb-4 btn-sm">{{ i }} </span>
+             {% else %}
+                 <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+
+    {% endif %}
+{% endblock content %}

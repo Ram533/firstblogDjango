@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% block content %}
+        <article class="media content-section">
+            <img class="img-responsive rounded-circle article-img" src=" {{object.author.profile.image.url}} ">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'userhomepage' object.author.username %}">{{ object.author }}</a>
+                <small class="text-muted">{{ object.date_posted | date:"F d, Y" }}</small>
+                <div>
+                    {% if object.author == user %}
+                    <a class="btn btn-outline-primary mt-1 mb-1 btn-sm " href="{% url 'updatepage' object.id %}">Update</a>
+                    <a class="btn btn-outline-danger mt-1 mb-1 btn-sm" href="{% url 'deletepage' object.id %}">Delte</a>
+                    {% endif %}
+                </div>
+               
+            </div>
+            <h2 class= " article-title"> {{ object.movie_name }} </h2>
+            <p class="article-content"> {{ object.review }} </p>
+            </div>
+        </article>
+{% endblock content %}
