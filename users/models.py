@@ -14,12 +14,12 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
     
     #resize image overriding parent class save function
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
         
-        img = Image.open(self.image.path)
+    #     img = Image.open(self.image.path)
         
-        if img.width > 300 or img.height > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+    #     if img.width > 300 or img.height > 300:
+    #         output_size = (300,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.image.path)
